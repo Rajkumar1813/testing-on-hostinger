@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JJM Hospital, Kashipur - Hospital Organizational Structure & Clinical Governance Flow Chart</title>
+  <!-- Google Fonts for crisp modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <style>
+    :root {
+      --primary-teal: #0d6559;
+      --primary-teal-dark: #09473e;
+      --primary-teal-light: #e6f4f1;
+      --primary-navy: #183e7a;
+      --primary-navy-dark: #102d5a;
+      --primary-navy-light: #edf2f9;
+      --primary-charcoal: #253138;
+      --primary-charcoal-dark: #182025;
+      --accent-red: #d32f2f;
+      --accent-red-light: #fef2f2;
+      --border-gray: #cbd5e1;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-heading: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      background-color: #f1f5f9;
+      line-height: 1.35;
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: auto;
+    }
+
+    /* Interactive Top Control Bar */
+    .utility-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #cbd5e1;
+      padding: 9px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                  opacity 0.25s ease, 
+                  margin-top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .utility-bar.bar-hidden {
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+      margin-top: -65px;
+    }
+
+    body.bar-is-hidden {
+      overflow-x: auto;
+    }
+
+    body.bar-is-hidden .chart-viewport {
+      padding-top: 14px;
+    }
+
+    .utility-left, .utility-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box input {
+      padding: 7px 28px 7px 32px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 12.5px;
+      width: 240px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-box input:focus {
+      border-color: var(--primary-teal);
+      box-shadow: 0 0 0 3px rgba(13, 101, 89, 0.15);
+      width: 280px;
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 8px;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
+      border-radius: 50%;
+      transition: color 0.15s ease;
+    }
+
+    .search-clear-btn:hover {
+      color: #0f172a;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .pill-btn {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 4px 9px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .pill-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .pill-btn.active {
+      background: var(--primary-teal);
+      border-color: var(--primary-teal);
+      color: #ffffff;
+      box-shadow: 0 2px 4px rgba(13, 101, 89, 0.25);
+    }
+
+    /* Control Group Container */
+    .control-group {
+      display: inline-flex;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .zoom-badge {
+      font-size: 11px;
+      font-weight: 700;
+      min-width: 44px;
+      text-align: center;
+      color: #1e293b;
+      user-select: none;
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .zoom-badge:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .control-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      font-family: var(--font-body);
+    }
+
+    .control-btn:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+
+    .control-btn.icon-only {
+      padding: 6px 8px;
+    }
+
+    .control-btn.primary {
+      background: var(--primary-teal);
+      border-color: var(--primary-teal);
+      color: #ffffff;
+    }
+
+    .control-btn.primary:hover {
+      background: var(--primary-teal-dark);
+      border-color: var(--primary-teal-dark);
+    }
+
+    .control-btn.tv-btn {
+      background: linear-gradient(135deg, #183e7a, #102d5a);
+      color: #ffffff;
+      border-color: #0d254a;
+      box-shadow: 0 2px 4px rgba(24, 62, 122, 0.25);
+    }
+
+    .control-btn.tv-btn:hover {
+      background: linear-gradient(135deg, #102d5a, #0b1f3d);
+      color: #ffffff;
+    }
+
+    .control-btn.toggle-bar-btn {
+      background: #f1f5f9;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+
+    .control-btn.toggle-bar-btn:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+      border-color: #94a3b8;
+    }
+
+    /* Floating "i" Symbol Trigger Button (Appears when Top Bar is Hidden) */
+    .floating-info-btn {
+      position: fixed;
+      top: 14px;
+      right: 18px;
+      z-index: 2000;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #0d6559;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      box-shadow: 0 4px 14px rgba(13, 101, 89, 0.45), 0 2px 6px rgba(0, 0, 0, 0.15);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      outline: none;
+    }
+
+    .floating-info-btn:hover {
+      background: #09473e;
+      transform: scale(1.12);
+      box-shadow: 0 6px 18px rgba(13, 101, 89, 0.55), 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .floating-info-btn:active {
+      transform: scale(0.94);
+    }
+
+    .floating-info-btn.visible {
+      display: flex;
+      animation: popIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* TV Feedback Toast */
+    .tv-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 9px 20px;
+      border-radius: 30px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 2200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tv-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Main Chart Canvas & TV Scaling Wrapper */
+    .chart-viewport {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: calc(100vh - 65px);
+      overflow: auto;
+      transition: padding 0.3s ease;
+    }
+
+    .chart-scale-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      transition: width 0.2s ease-out, height 0.2s ease-out;
+      margin: 0 auto;
+    }
+
+    .chart-container {
+      width: 1720px;
+      min-width: 1720px;
+      background: #ffffff;
+      border: 2px solid #0d6559;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border-radius: 4px;
+      padding: 16px 20px 20px 20px;
+      position: relative;
+      overflow: visible;
+      transform-origin: top center;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Television & Ultra-Large Display Optimization (44", 55", 65"+ 4K / UHD Screens) */
+    @media screen and (min-width: 2560px) {
+      .utility-bar {
+        padding: 14px 32px;
+        gap: 16px;
+      }
+      .search-box input {
+        font-size: 14px;
+        padding: 9px 14px 9px 36px;
+        width: 300px;
+      }
+      .search-box input:focus {
+        width: 360px;
+      }
+      .pill-btn {
+        font-size: 12.5px;
+        padding: 6px 12px;
+      }
+      .control-btn {
+        font-size: 13px;
+        padding: 7px 16px;
+        gap: 8px;
+      }
+      .floating-info-btn {
+        width: 50px;
+        height: 50px;
+        top: 20px;
+        right: 26px;
+      }
+      .floating-info-btn svg {
+        width: 26px;
+        height: 26px;
+      }
+    }
+
+    /* Fullscreen & TV Mode Styles (Pure White Background) */
+    :fullscreen,
+    :-webkit-full-screen {
+      background-color: #ffffff !important;
+    }
+
+    :fullscreen body,
+    :-webkit-full-screen body,
+    body.tv-mode-active {
+      background-color: #ffffff !important;
+    }
+
+    :fullscreen .chart-viewport,
+    :-webkit-full-screen .chart-viewport,
+    body.tv-mode-active .chart-viewport {
+      background-color: #ffffff !important;
+      padding: 10px;
+      min-height: 100vh;
+    }
+
+    :fullscreen .chart-container,
+    :-webkit-full-screen .chart-container,
+    body.tv-mode-active .chart-container {
+      background-color: #ffffff !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+      border: 2px solid #0d6559 !important;
+    }
+
+    /* Top Institution Header */
+    .chart-header {
+      text-align: center;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #0d6559;
+      margin-bottom: 18px;
+    }
+
+    .chart-header h1 {
+      font-family: var(--font-heading);
+      font-size: 26px;
+      font-weight: 800;
+      color: #09473e;
+      letter-spacing: 0.8px;
+      margin-bottom: 2px;
+    }
+
+    .chart-header h2 {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: 0.6px;
+      margin-bottom: 4px;
+    }
+
+    .chart-header p {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #475569;
+      font-style: italic;
+    }
+
+    /* Tree Structure and Layout */
+    .tree-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Level 1: Medical Director */
+    .level-apex {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 0px;
+    }
+
+    .node-apex {
+      background: linear-gradient(135deg, #0d6559, #08483f);
+      color: #ffffff;
+      border-radius: 4px;
+      padding: 10px 28px;
+      text-align: center;
+      min-width: 440px;
+      max-width: 500px;
+      box-shadow: 0 4px 10px rgba(13, 101, 89, 0.25);
+      border: 1px solid #063831;
+      position: relative;
+      z-index: 2;
+    }
+
+    .node-apex .title {
+      font-family: var(--font-heading);
+      font-size: 14.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .node-apex .designated {
+      font-size: 12px;
+      font-weight: 600;
+      color: #e6f4f1;
+      margin-bottom: 3px;
+    }
+
+    .node-apex .subtext {
+      font-size: 10px;
+      opacity: 0.9;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+
+    /* SVG Flowchart Connectors */
+    .flowchart-svg-layer {
+      display: block;
+      width: 100%;
+      overflow: visible;
+    }
+
+    .level-1-to-2-svg {
+      height: 36px;
+      margin-bottom: 2px;
+    }
+
+    /* Level 2: Three Main Pillars */
+    .pillars-container {
+      display: grid;
+      grid-template-columns: 530px 580px 530px;
+      justify-content: space-between;
+      width: 100%;
+      gap: 20px;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .pillar-col {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Pillar Top Boxes */
+    .pillar-header-box {
+      color: #ffffff;
+      border-radius: 4px;
+      padding: 8px 16px;
+      text-align: center;
+      min-height: 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 0px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+
+    .pillar-header-box .title {
+      font-family: var(--font-heading);
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .pillar-header-box .designated {
+      font-size: 11.5px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .pillar-header-box .subtext {
+      font-size: 9.5px;
+      opacity: 0.9;
+    }
+
+    .box-navy {
+      background: linear-gradient(135deg, #183e7a, #102d5a);
+      border: 1px solid #0b2040;
+    }
+
+    .box-teal {
+      background: linear-gradient(135deg, #0d6559, #08483f);
+      border: 1px solid #063831;
+    }
+
+    .box-charcoal {
+      background: linear-gradient(135deg, #253138, #182025);
+      border: 1px solid #10161a;
+    }
+
+    /* Pillar Connector SVGs (Level 2 to Level 3) */
+    .pillar-connector-svg {
+      width: 100%;
+      height: 22px;
+      margin-bottom: 4px;
+      display: block;
+      overflow: visible;
+    }
+
+    /* ===================================================
+       COLUMN 1: MEDICAL SUPERINTENDENT (Clinical, Diagnostics, Nursing)
+       =================================================== */
+    .left-subcolumns {
+      display: grid;
+      grid-template-columns: 270px 125px 115px;
+      gap: 8px;
+      position: relative;
+    }
+
+    /* Section Category Header Pill */
+    .section-badge {
+      border-radius: 4px;
+      padding: 5px 4px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 10.5px;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      border: 1px solid transparent;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    }
+
+    .badge-clinical {
+      background: #eef2ff;
+      color: #1e3a8a;
+      border-color: #c7d2fe;
+    }
+
+    .badge-diagnostics {
+      background: #e0f2fe;
+      color: #0369a1;
+      border-color: #bae6fd;
+    }
+
+    .badge-nursing {
+      background: #f3e8ff;
+      color: #6b21a8;
+      border-color: #e9d5ff;
+    }
+
+    .badge-allied {
+      background: #f1f5f9;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+
+    .badge-facility {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fde68a;
+    }
+
+    .badge-corporate {
+      background: #f1f5f9;
+      color: #334155;
+      border-color: #cbd5e1;
+    }
+
+    /* Clinical 2-column mini grid */
+    .clinical-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    /* Standard Card Component */
+    .org-card {
+      background: #ffffff;
+      border: 1px solid #94a3b8;
+      border-radius: 4px;
+      padding: 6px 6px;
+      text-align: center;
+      transition: all 0.15s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 52px;
+    }
+
+    .org-card:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .org-card .dept {
+      font-size: 10px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 1px;
+      line-height: 1.15;
+    }
+
+    .org-card .doctor-name {
+      font-size: 9.5px;
+      font-weight: 700;
+      margin-bottom: 1px;
+      line-height: 1.15;
+    }
+
+    .org-card .doctor-blue {
+      color: #1d4ed8;
+    }
+
+    .org-card .doctor-green {
+      color: #15803d;
+    }
+
+    .org-card .doctor-dark {
+      color: #0f172a;
+    }
+
+    .org-card .designation {
+      font-size: 8.5px;
+      color: #475569;
+      line-height: 1.15;
+    }
+
+    .org-card .tag {
+      font-size: 8px;
+      color: #64748b;
+      margin-top: 1px;
+      font-weight: 500;
+    }
+
+    /* Special ICN Card with red dashed border */
+    .card-icn-highlight {
+      border: 1.5px dashed #dc2626 !important;
+      background: #fef2f2 !important;
+      position: relative;
+    }
+
+    .card-icn-highlight .dept {
+      color: #b91c1c !important;
+    }
+
+    .card-icn-highlight .doctor-name {
+      color: #dc2626 !important;
+    }
+
+    /* Real Inter-Pillar Red Dashed Arrow connecting ICN to HICC */
+    .hicc-red-arrow-bridge {
+      position: absolute;
+      top: 50%;
+      right: -24px;
+      width: 24px;
+      height: 18px;
+      transform: translateY(-50%);
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .hicc-bridge-label {
+      position: absolute;
+      top: -12px;
+      right: -23px;
+      background: #dc2626;
+      color: #ffffff;
+      font-size: 6.5px;
+      font-weight: 800;
+      padding: 1px 3px;
+      border-radius: 2px;
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(220, 38, 38, 0.3);
+      z-index: 101;
+    }
+
+    /* Diagnostics Stack */
+    .diagnostics-stack, .nursing-stack, .allied-stack, .facility-stack, .corporate-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* ===================================================
+       COLUMN 2: QUALITY & PATIENT SAFETY (Center Secretariat & Committees)
+       =================================================== */
+    .center-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    /* Quality Secretariat Container */
+    .secretariat-container {
+      background: #f0fdf4;
+      border: 1.5px solid #4ade80;
+      border-radius: 4px;
+      padding: 7px 12px;
+      text-align: center;
+      margin-bottom: 0px;
+    }
+
+    .secretariat-container .header-title {
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 800;
+      color: #15803d;
+      letter-spacing: 0.3px;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+    }
+
+    .secretariat-container .leadership-line {
+      font-size: 9px;
+      font-weight: 700;
+      color: #166534;
+      margin-bottom: 2px;
+    }
+
+    .secretariat-container .functions-line {
+      font-size: 8.5px;
+      color: #1e293b;
+      font-weight: 500;
+    }
+
+    /* Secretariat to Committees connector */
+    .secretariat-connector-svg {
+      width: 100%;
+      height: 12px;
+      display: block;
+      margin: 1px 0;
+    }
+
+    /* Statutory Committees Ribbon Header */
+    .statutory-header-banner {
+      background: #0d6559;
+      color: #ffffff;
+      font-family: var(--font-heading);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 5px 8px;
+      border-radius: 3px;
+      margin-bottom: 8px;
+    }
+
+    /* 6 Committees Grid (2 columns x 3 rows) */
+    .committees-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .committee-card {
+      background: #ffffff;
+      border: 1px solid #0d6559;
+      border-radius: 4px;
+      padding: 6px 8px;
+      text-align: left;
+      min-height: 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .committee-card:hover {
+      box-shadow: 0 4px 10px rgba(13, 101, 89, 0.15);
+      border-color: #09473e;
+    }
+
+    .committee-card .top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+
+    .committee-card .comm-title {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #0d6559;
+      line-height: 1.15;
+    }
+
+    .committee-card .comm-code {
+      font-size: 8px;
+      font-weight: 800;
+      color: #0369a1;
+      margin-left: 4px;
+    }
+
+    .committee-card .comm-officers {
+      font-size: 8.5px;
+      font-weight: 600;
+      color: #1e293b;
+      margin-bottom: 2px;
+      line-height: 1.2;
+    }
+
+    .committee-card .comm-scope {
+      font-size: 8px;
+      color: #475569;
+      line-height: 1.15;
+    }
+
+    /* Highlighted committee 1 for HICC connection */
+    .committee-hicc-target {
+      border: 1.5px solid #dc2626 !important;
+      background: #fffcfc;
+    }
+
+    .committee-hicc-target .comm-title {
+      color: #b91c1c !important;
+    }
+
+    /* ===================================================
+       COLUMN 3: HEAD - OPERATIONS & ADMIN (Allied, Facility, Admin)
+       =================================================== */
+    .right-subcolumns {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    /* ===================================================
+       ESCALATION FLOW BANNER
+       =================================================== */
+    .escalation-continuum-bar {
+      margin-top: 14px;
+      margin-bottom: 14px;
+      background: #f8fafc;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 7px 14px;
+      text-align: center;
+    }
+
+    .escalation-continuum-bar .escalation-title {
+      font-family: var(--font-heading);
+      font-size: 10.5px;
+      font-weight: 800;
+      color: #0d6559;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .escalation-flow-steps {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 9.5px;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    .escalation-flow-steps .step {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 3px;
+      padding: 3px 8px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .escalation-flow-steps .arrow-svg {
+      display: inline-flex;
+      align-items: center;
+      color: #0d6559;
+    }
+
+    .escalation-flow-steps .step.urgent {
+      background: #fef2f2;
+      border-color: #fca5a5;
+      color: #991b1b;
+      font-weight: 700;
+    }
+
+    /* ===================================================
+       BOTTOM THREE-COLUMN FOOTER / LEGEND
+       =================================================== */
+    .chart-footer {
+      display: grid;
+      grid-template-columns: 1.1fr 1.6fr 1.1fr;
+      gap: 16px;
+      border-top: 1.5px solid #0d6559;
+      padding-top: 10px;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      font-size: 8.5px;
+      line-height: 1.35;
+    }
+
+    .footer-col .footer-title {
+      font-family: var(--font-heading);
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #0d6559;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .footer-col p {
+      margin-bottom: 2px;
+      color: #334155;
+    }
+
+    .footer-col strong {
+      color: #0f172a;
+    }
+
+    .highlight-active {
+      box-shadow: 0 0 0 3px #f59e0b !important;
+      border-color: #d97706 !important;
+      transform: scale(1.02);
+      z-index: 50;
+      background-color: #fffbeb !important;
+    }
+
+    .dimmed {
+      opacity: 0.28 !important;
+      filter: grayscale(80%);
+    }
+
+    /* Print Stylesheet for Flawless A3 / A4 Landscape */
+    @media print {
+      @page {
+        size: landscape;
+        margin: 5mm;
+      }
+
+      body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .utility-bar,
+      .floating-info-btn,
+      .tv-toast {
+        display: none !important;
+      }
+
+      .chart-viewport {
+        padding: 0 !important;
+        margin: 0 !important;
+        transform: none !important;
+        min-height: auto !important;
+      }
+
+      .chart-scale-wrapper {
+        width: 100% !important;
+        height: auto !important;
+      }
+
+      .chart-container {
+        width: 100% !important;
+        min-width: 100% !important;
+        box-shadow: none !important;
+        border: 1.5px solid #0d6559 !important;
+        padding: 10px 14px !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating "i" Symbol Trigger Button (Opens toolbar when clicked) -->
+  <button class="floating-info-btn" id="floatingInfoBtn" title="Click to Open Toolbar (or press H)" aria-label="Open Toolbar">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="16" x2="12" y2="12"></line>
+      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+    </svg>
+  </button>
+
+  <!-- Toast Notification Feedback for TV / Display -->
+  <div class="tv-toast" id="tvToast" role="status" aria-live="polite"></div>
+
+  <!-- Floating Utility Header -->
+  <nav class="utility-bar" id="utilityBar" aria-label="Chart Toolbar">
+    <div class="utility-left">
+      <div class="search-box">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search doctor, dept, committee..." autocomplete="off" />
+        <button id="searchClearBtn" class="search-clear-btn" title="Clear search" style="display:none;" type="button">&times;</button>
+      </div>
+
+      <div class="filter-pills" id="chapterFilterPills">
+        <button class="pill-btn active" data-chapter="all" type="button">All Standards</button>
+        <button class="pill-btn" data-chapter="COP" type="button">COP</button>
+        <button class="pill-btn" data-chapter="AAC" type="button">AAC</button>
+        <button class="pill-btn" data-chapter="MOM" type="button">MOM</button>
+        <button class="pill-btn" data-chapter="HIC" type="button">HIC</button>
+        <button class="pill-btn" data-chapter="PAC" type="button">PAC</button>
+        <button class="pill-btn" data-chapter="CQI" type="button">CQI</button>
+        <button class="pill-btn" data-chapter="PSQ" type="button">PSQ</button>
+        <button class="pill-btn" data-chapter="FMS" type="button">FMS</button>
+        <button class="pill-btn" data-chapter="HRM" type="button">HRM</button>
+        <button class="pill-btn" data-chapter="IMS" type="button">IMS</button>
+        <button class="pill-btn" data-chapter="PRE" type="button">PRE</button>
+      </div>
+    </div>
+
+    <div class="utility-right">
+      <!-- Zoom Group -->
+      <div class="control-group" title="Zoom Level (Click 100% to Reset)">
+        <button class="control-btn icon-only" id="zoomOutBtn" title="Zoom Out (-)" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <span id="zoomLevelDisplay" class="zoom-badge" title="Click to reset zoom to 100%">100%</span>
+        <button class="control-btn icon-only" id="zoomInBtn" title="Zoom In (+)" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+      </div>
+
+      <!-- TV Screen Fit Options -->
+      <div class="control-group">
+        <button class="control-btn" id="zoomFitScreenBtn" title="Fit Entire Chart to Screen (Press S)" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+          <span>Fit Screen</span>
+        </button>
+        <button class="control-btn" id="zoomFitWidthBtn" title="Fit Chart to Full Width (Press W)" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+          <span>Fit Width</span>
+        </button>
+      </div>
+
+      <!-- TV Presentation Mode Button -->
+      <button class="control-btn tv-btn" id="tvModeBtn" title="TV Presentation Mode (Press F)" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+          <polyline points="17 2 12 7 7 2"></polyline>
+        </svg>
+        <span>TV Mode</span>
+      </button>
+
+      <!-- Print / Export Button -->
+      <button class="control-btn primary" id="printBtn" onclick="window.print()" title="Print or Save PDF" type="button">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        <span>Print</span>
+      </button>
+
+      <!-- Hide Top Bar Button -->
+      <button class="control-btn toggle-bar-btn" id="hideBarBtn" title="Hide Top Bar (Press H or Esc)" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+          <line x1="1" y1="1" x2="23" y2="23"></line>
+        </svg>
+        <span>Hide Bar</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Interactive Chart Viewport with TV Sizing Wrapper -->
+  <main class="chart-viewport" id="chartViewport">
+    <div class="chart-scale-wrapper" id="chartScaleWrapper">
+      <div class="chart-container" id="chartContainer">
+
+      <!-- Hospital Header Banner -->
+      <header class="chart-header">
+        <h1>JJM HOSPITAL, KASHIPUR</h1>
+        <h2>HOSPITAL ORGANIZATIONAL STRUCTURE & CLINICAL GOVERNANCE FLOW CHART</h2>
+        <p>Accreditation Framework: NABH 6th Edition Standards (Core Governance, Continuous Quality Improvement & Patient Safety)</p>
+      </header>
+
+      <div class="tree-wrapper">
+
+        <!-- LEVEL 1: APEX GOVERNANCE -->
+        <div class="level-apex">
+          <div class="node-apex" data-keywords="medical director managing director abhishek goel leadership resource quality accountability" data-chapters="GOV,AAC,COP,CQI">
+            <div class="title">MEDICAL DIRECTOR / MANAGING DIRECTOR</div>
+            <div class="designated">Designated: Dr. Abhishek Goel</div>
+            <div class="subtext">Executive Leadership, Resource Allocation & Clinical Quality Accountability</div>
+          </div>
+        </div>
+
+        <!-- SVG FLOWCHART CONNECTORS: LEVEL 1 TO LEVEL 2 (With Arrowheads) -->
+        <svg class="flowchart-svg-layer level-1-to-2-svg" viewBox="0 0 1680 36" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <marker id="arrow-teal" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#0d6559" />
+            </marker>
+            <marker id="arrow-navy" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#183e7a" />
+            </marker>
+            <marker id="arrow-charcoal" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#253138" />
+            </marker>
+          </defs>
+          <!-- Stem from Apex Box bottom -->
+          <line x1="840" y1="0" x2="840" y2="16" stroke="#0d6559" stroke-width="2" />
+          <!-- Horizontal crossbar spanning across the 3 pillars -->
+          <line x1="265" y1="16" x2="1415" y2="16" stroke="#0d6559" stroke-width="2" />
+          <!-- Left drop to Medical Superintendent with Arrowhead -->
+          <line x1="265" y1="16" x2="265" y2="34" stroke="#183e7a" stroke-width="2" marker-end="url(#arrow-navy)" />
+          <!-- Center drop to Quality & Patient Safety with Arrowhead -->
+          <line x1="840" y1="16" x2="840" y2="34" stroke="#0d6559" stroke-width="2" marker-end="url(#arrow-teal)" />
+          <!-- Right drop to Operations & Admin with Arrowhead -->
+          <line x1="1415" y1="16" x2="1415" y2="34" stroke="#253138" stroke-width="2" marker-end="url(#arrow-charcoal)" />
+        </svg>
+
+        <!-- LEVEL 2: THREE EXECUTIVE PILLARS -->
+        <div class="pillars-container">
+
+          <!-- =========================================================
+               PILLAR 1: MEDICAL SUPERINTENDENT (CLINICAL, DIAGNOSTICS, NURSING)
+               ========================================================= -->
+          <section class="pillar-col" aria-label="Medical Superintendent Pillar">
+            <div class="pillar-header-box box-navy" data-keywords="medical superintendent ashok goel clinical governance credentialing patient care aac cop" data-chapters="AAC,COP">
+              <div class="title">MEDICAL SUPERINTENDENT</div>
+              <div class="designated">Designated: Dr. Ashok Goel</div>
+              <div class="subtext">Clinical Governance, Credentialing & Patient Care (AAC, COP)</div>
+            </div>
+
+            <!-- SVG Connectors from Medical Superintendent to Sub-columns -->
+            <svg class="pillar-connector-svg" viewBox="0 0 530 22" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <marker id="sub-arrow-navy" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#183e7a" />
+                </marker>
+              </defs>
+              <!-- Stem from Superintendent -->
+              <line x1="265" y1="0" x2="265" y2="10" stroke="#183e7a" stroke-width="1.8" />
+              <!-- Horizontal crossbar -->
+              <line x1="135" y1="10" x2="468" y2="10" stroke="#183e7a" stroke-width="1.8" />
+              <!-- Drop to Clinical Specialties badge -->
+              <line x1="135" y1="10" x2="135" y2="20" stroke="#183e7a" stroke-width="1.8" marker-end="url(#sub-arrow-navy)" />
+              <!-- Drop to Diagnostics badge -->
+              <line x1="340" y1="10" x2="340" y2="20" stroke="#183e7a" stroke-width="1.8" marker-end="url(#sub-arrow-navy)" />
+              <!-- Drop to Nursing Services badge -->
+              <line x1="468" y1="10" x2="468" y2="20" stroke="#183e7a" stroke-width="1.8" marker-end="url(#sub-arrow-navy)" />
+            </svg>
+
+            <div class="left-subcolumns">
+
+              <!-- Sub-Column A: Clinical Specialties (2 sub-cols) -->
+              <div class="subcol-clinical">
+                <div class="section-badge badge-clinical">CLINICAL SPECIALTIES (COP, AAC)</div>
+                <div class="clinical-cards-grid">
+                  
+                  <!-- Left Mini-Col -->
+                  <div class="clinical-cards-col-1" style="display: flex; flex-direction: column; gap: 6px;">
+                    <div class="org-card" data-keywords="nephrology dialysis abhishek goel consultant nephrologist" data-chapters="COP,AAC">
+                      <div class="dept">Nephrology & Dialysis</div>
+                      <div class="doctor-name doctor-blue">Dr. Abhishek Goel</div>
+                      <div class="designation">Consultant Nephrologist</div>
+                      <div class="tag">(NABH: COP, AAC)</div>
+                    </div>
+
+                    <div class="org-card" data-keywords="anaesthesiology icu yamini goel consultant anaesthesiologist" data-chapters="COP,MOM">
+                      <div class="dept">Anaesthesiology & ICU</div>
+                      <div class="doctor-name doctor-blue">Dr. Yamini Goel</div>
+                      <div class="designation">Consultant Anaesthesiologist</div>
+                      <div class="tag">(NABH: COP, MOM)</div>
+                    </div>
+
+                    <div class="org-card" data-keywords="general lap surgery pradeep raj rastogi consultant surgeon" data-chapters="COP,PRE">
+                      <div class="dept">General & Lap. Surgery</div>
+                      <div class="doctor-name doctor-blue">Dr. Pradeep Raj Rastogi</div>
+                      <div class="designation">Consultant Surgeon</div>
+                      <div class="tag">(NABH: COP, PRE)</div>
+                    </div>
+
+                    <div class="org-card" data-keywords="emergency casualty duty cmos emos casualty medical officers" data-chapters="AAC,COP">
+                      <div class="dept">Emergency & Casualty</div>
+                      <div class="doctor-name doctor-blue">Duty CMOs / EMOs</div>
+                      <div class="designation">Casualty Medical Officers</div>
+                      <div class="tag">(NABH: AAC, COP)</div>
+                    </div>
+                  </div>
+
+                  <!-- Right Mini-Col -->
+                  <div class="clinical-cards-col-2" style="display: flex; flex-direction: column; gap: 6px;">
+                    <div class="org-card" data-keywords="general medicine s p gupta consultant physician" data-chapters="COP,AAC">
+                      <div class="dept">General Medicine</div>
+                      <div class="doctor-name doctor-green">Dr. S. P. Gupta</div>
+                      <div class="designation">Consultant Physician</div>
+                      <div class="tag">(NABH: COP, AAC)</div>
+                    </div>
+
+                    <div class="org-card" data-keywords="paediatrics arun prakash pancholi consultant paediatrician" data-chapters="COP,AAC">
+                      <div class="dept">Paediatrics</div>
+                      <div class="doctor-name doctor-green">Dr. Arun Prakash Pancholi</div>
+                      <div class="designation">Consultant Paediatrician</div>
+                      <div class="tag">(NABH: COP, AAC)</div>
+                    </div>
+
+                    <div class="org-card" data-keywords="obs gynaecology ruchi devendra mehta consultant gynaecologist" data-chapters="COP,PRE">
+                      <div class="dept">Obs & Gynaecology</div>
+                      <div class="doctor-name doctor-green">Dr. Ruchi Devendra Mehta</div>
+                      <div class="designation">Consultant Gynaecologist</div>
+                      <div class="tag">(NABH: COP, PRE)</div>
+                    </div>
+
+                    <div class="org-card" data-keywords="orthopaedics a k sirohi consultant orthopaedic surgeon" data-chapters="COP,PRE">
+                      <div class="dept">Orthopaedics</div>
+                      <div class="doctor-name doctor-green">Dr. A. K. Sirohi</div>
+                      <div class="designation">Consultant Orthopaedic Surgeon</div>
+                      <div class="tag">(NABH: COP, PRE)</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Sub-Column B: Diagnostics (PAC) -->
+              <div class="subcol-diagnostics">
+                <div class="section-badge badge-diagnostics">DIAGNOSTICS (PAC)</div>
+                <div class="diagnostics-stack">
+                  <div class="org-card" data-keywords="radiology imaging b m goel consultant radiologist" data-chapters="PAC,HRM">
+                    <div class="dept">Radiology & Imaging</div>
+                    <div class="doctor-name doctor-blue">Dr. B. M. Goel</div>
+                    <div class="designation">Consultant Radiologist</div>
+                    <div class="tag">(NABH: PAC, HRM)</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="clinical pathology a k goel consultant pathologist" data-chapters="PAC,HIC">
+                    <div class="dept">Clinical Pathology</div>
+                    <div class="doctor-name doctor-blue">Dr. A. K. Goel</div>
+                    <div class="designation">Consultant Pathologist</div>
+                    <div class="tag">(NABH: PAC, HIC)</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="diagnostic techs senior techs lab x-ray technicians" data-chapters="PAC">
+                    <div class="dept">Diagnostic Techs</div>
+                    <div class="doctor-name doctor-dark">Senior Techs</div>
+                    <div class="designation">Lab & X-Ray Technicians</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="blood storage centre transfusion bsu cold chain crossmatch pack rbc" data-chapters="PAC,COP">
+                    <div class="dept">Blood Storage Centre</div>
+                    <div class="doctor-name doctor-blue">Medical Officer / Tech</div>
+                    <div class="designation">Cold Chain & Crossmatch</div>
+                    <div class="tag">(NABH: PAC, COP)</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sub-Column C: Nursing Services -->
+              <div class="subcol-nursing" style="position: relative;">
+                <div class="section-badge badge-nursing">NURSING SERVICES</div>
+                <div class="nursing-stack">
+                  <div class="org-card" data-keywords="nursing supdt ns staffing ratios hrm" data-chapters="HRM">
+                    <div class="dept">Nursing Supdt.</div>
+                    <div class="doctor-name doctor-dark" style="color: #6b21a8;">Designated: NS</div>
+                    <div class="designation">Staffing & Ratios (HRM)</div>
+                  </div>
+
+                  <div class="org-card card-icn-highlight" id="nodeICN" data-keywords="infection control nurse icn surveillance audits hicc" data-chapters="HIC">
+                    <div class="dept">Infection Control Nurse</div>
+                    <div class="doctor-name">Designated: ICN</div>
+                    <div class="designation">Surveillance & Audits</div>
+                    
+                    <!-- SVG Red Dashed Flowchart Arrow connecting across column to Committee 1 (HICC) -->
+                    <div class="hicc-red-arrow-bridge">
+                      <span class="hicc-bridge-label">AUDIT</span>
+                      <svg width="24" height="18" viewBox="0 0 24 18" fill="none">
+                        <defs>
+                          <marker id="arrow-red-icn" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto">
+                            <path d="M 0 1 L 7 4 L 0 7 z" fill="#dc2626" />
+                          </marker>
+                        </defs>
+                        <line x1="0" y1="9" x2="21" y2="9" stroke="#dc2626" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#arrow-red-icn)" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="org-card" data-keywords="ward icu incharges senior staff nurses ot icu dialysis wards" data-chapters="COP">
+                    <div class="dept">Ward / ICU Incharges</div>
+                    <div class="doctor-name doctor-dark">Senior Staff Nurses</div>
+                    <div class="designation">OT, ICU, Dialysis, Wards</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="bedside care staff staff nurses techs dialysis techs gda" data-chapters="COP">
+                    <div class="dept">Bedside Care Staff</div>
+                    <div class="doctor-name doctor-dark">Staff Nurses & Techs</div>
+                    <div class="designation">Dialysis Techs & GDA</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+
+          <!-- =========================================================
+               PILLAR 2: QUALITY & PATIENT SAFETY (SECRETARIAT & COMMITTEES)
+               ========================================================= -->
+          <section class="pillar-col" aria-label="Quality & Patient Safety Pillar">
+            <div class="pillar-header-box box-teal" data-keywords="quality patient safety quality manager cqi indicators risk assessment incident audits psq" data-chapters="CQI,PSQ">
+              <div class="title">QUALITY & PATIENT SAFETY</div>
+              <div class="designated">Designated: Quality Manager</div>
+              <div class="subtext">NABH 6th CQI Indicators, Risk Assessment, Incident Audits (PSQ)</div>
+            </div>
+
+            <!-- SVG Connector from Quality Header to Secretariat with Arrow -->
+            <svg class="pillar-connector-svg" viewBox="0 0 580 22" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <marker id="sub-arrow-teal" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#0d6559" />
+                </marker>
+              </defs>
+              <line x1="290" y1="0" x2="290" y2="20" stroke="#0d6559" stroke-width="2" marker-end="url(#sub-arrow-teal)" />
+            </svg>
+
+            <div class="center-content-wrapper">
+
+              <!-- Quality Secretariat Top Box -->
+              <div class="secretariat-container" data-keywords="nabh 6th edition quality patient safety secretariat quality manager coordinator champions incident sentinel near misses clinical audits indicators" data-chapters="CQI,PSQ">
+                <div class="header-title">NABH 6th EDITION QUALITY & PATIENT SAFETY SECRETARIAT</div>
+                <div class="leadership-line">Headed by: Quality Manager | Supported by: Quality Coordinator & NABH Champions</div>
+                <div class="functions-line">Key Functions: Incident Management (Sentinel Events / Near Misses), Clinical Audits, Quality Indicator Tracking</div>
+              </div>
+
+              <!-- Connector from Secretariat to Statutory Committees Strip with Arrow -->
+              <svg class="secretariat-connector-svg" viewBox="0 0 580 12" preserveAspectRatio="none" aria-hidden="true">
+                <line x1="290" y1="0" x2="290" y2="10" stroke="#0d6559" stroke-width="1.8" marker-end="url(#sub-arrow-teal)" />
+              </svg>
+
+              <!-- Statutory Committees Header Strip -->
+              <div class="statutory-header-banner">
+                STATUTORY NABH 6th EDITION COMMITTEES & DESIGNATED HEADS
+              </div>
+
+              <!-- 6 Statutory Committees Grid -->
+              <div class="committees-grid">
+
+                <!-- Committee 1: HICC -->
+                <div class="committee-card committee-hicc-target" id="nodeHICC" data-keywords="1 hospital infection control hicc hic med supdt icn surveillance cauti clabsi ssi vap bmw disinfection" data-chapters="HIC">
+                  <div class="top-row">
+                    <span class="comm-title">1. Hospital Infection Control (HICC)</span>
+                    <span class="comm-code">[HIC]</span>
+                  </div>
+                  <div class="comm-officers">Chair: Med. Supdt. | Sec: ICN | Surveillance: ICN</div>
+                  <div class="comm-scope">HAI Surveillance (CAUTI, CLABSI, SSI, VAP), BMW, Disinfection</div>
+                </div>
+
+                <!-- Committee 4: Quality & Patient Safety -->
+                <div class="committee-card" data-keywords="4 quality patient safety cqi psq abhishek goel quality manager hospital kpis sentinel event rca capa implementation" data-chapters="CQI,PSQ">
+                  <div class="top-row">
+                    <span class="comm-title">4. Quality & Patient Safety (CQI)</span>
+                    <span class="comm-code">[CQI, PSQ]</span>
+                  </div>
+                  <div class="comm-officers">Chair: Dr. Abhishek Goel | Sec: Quality Manager</div>
+                  <div class="comm-scope">Hospital KPIs, Sentinel Event RCA, CAPA Implementation</div>
+                </div>
+
+                <!-- Committee 2: Pharmaco & Materiovigilance -->
+                <div class="committee-card" data-keywords="2 pharmacovigilance materiovigilance mom yamini goel chief pharmacist high risk meds lasa compliance adr reporting implant vigilance" data-chapters="MOM">
+                  <div class="top-row">
+                    <span class="comm-title">2. Pharmaco &amp; Materiovigilance</span>
+                    <span class="comm-code">[MOM]</span>
+                  </div>
+                  <div class="comm-officers">Chair: Dr. Yamini Goel | Sec: Chief Pharmacist</div>
+                  <div class="comm-scope">High-risk meds, LASA compliance, ADR reporting, implant vigilance</div>
+                </div>
+
+                <!-- Committee 5: Facility Management & Safety -->
+                <div class="committee-card" data-keywords="5 facility management safety fms head admin safety officer fire drills hazmat safety bms calibrations hva disaster plan" data-chapters="FMS">
+                  <div class="top-row">
+                    <span class="comm-title">5. Facility Management & Safety (FMS)</span>
+                    <span class="comm-code">[FMS]</span>
+                  </div>
+                  <div class="comm-officers">Chair: Head - Admin | Sec: Safety Officer</div>
+                  <div class="comm-scope">Fire drills, HAZMAT safety, BMS calibrations, HVA disaster plan</div>
+                </div>
+
+                <!-- Committee 3: Resuscitation & Code Blue -->
+                <div class="committee-card" data-keywords="3 resuscitation code blue committee cop yamini goel icu shift in-charge resuscitation audits crash cart readiness acls bls training" data-chapters="COP">
+                  <div class="top-row">
+                    <span class="comm-title">3. Resuscitation & Code Blue Committee</span>
+                    <span class="comm-code">[COP]</span>
+                  </div>
+                  <div class="comm-officers">Chair: Dr. Yamini Goel | Lead: ICU Shift In-charge</div>
+                  <div class="comm-scope">Resuscitation audits, Crash Cart readiness, ACLS/BLS training</div>
+                </div>
+
+                <!-- Committee 6: Patient Rights & Grievance -->
+                <div class="committee-card" data-keywords="6 patient rights grievance committee pre med supdt patient care executive grievances informed consent billing audits privacy rights" data-chapters="PRE">
+                  <div class="top-row">
+                    <span class="comm-title">6. Patient Rights & Grievance Committee</span>
+                    <span class="comm-code">[PRE]</span>
+                  </div>
+                  <div class="comm-officers">Chair: Med. Supdt. | Sec: Patient Care Executive</div>
+                  <div class="comm-scope">Grievances, informed consent, billing audits, privacy rights</div>
+                </div>
+
+              </div>
+
+            </div>
+          </section>
+
+
+          <!-- =========================================================
+               PILLAR 3: HEAD - OPERATIONS & ADMIN (ALLIED, FACILITY, CORPORATE)
+               ========================================================= -->
+          <section class="pillar-col" aria-label="Operations & Admin Pillar">
+            <div class="pillar-header-box box-charcoal" data-keywords="head operations admin hospital administrator gm infrastructure biomedical safety non-clinical ops hr fms hrm" data-chapters="FMS,HRM">
+              <div class="title">HEAD - OPERATIONS & ADMIN</div>
+              <div class="designated">Designated: Hospital Administrator / GM</div>
+              <div class="subtext">Infrastructure, Biomedical Safety, Non-Clinical Ops & HR (FMS, HRM)</div>
+            </div>
+
+            <!-- SVG Connectors from Admin to Sub-columns with Arrowheads -->
+            <svg class="pillar-connector-svg" viewBox="0 0 530 22" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <marker id="sub-arrow-charcoal" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#253138" />
+                </marker>
+              </defs>
+              <!-- Stem from Admin -->
+              <line x1="265" y1="0" x2="265" y2="10" stroke="#253138" stroke-width="1.8" />
+              <!-- Horizontal crossbar -->
+              <line x1="86" y1="10" x2="444" y2="10" stroke="#253138" stroke-width="1.8" />
+              <!-- Drop to Allied Support badge -->
+              <line x1="86" y1="10" x2="86" y2="20" stroke="#253138" stroke-width="1.8" marker-end="url(#sub-arrow-charcoal)" />
+              <!-- Drop to Facility Safety badge -->
+              <line x1="265" y1="10" x2="265" y2="20" stroke="#253138" stroke-width="1.8" marker-end="url(#sub-arrow-charcoal)" />
+              <!-- Drop to Corporate / Admin badge -->
+              <line x1="444" y1="10" x2="444" y2="20" stroke="#253138" stroke-width="1.8" marker-end="url(#sub-arrow-charcoal)" />
+            </svg>
+
+            <div class="right-subcolumns">
+
+              <!-- Sub-Column A: Allied Support -->
+              <div class="subcol-allied">
+                <div class="section-badge badge-allied">ALLIED SUPPORT</div>
+                <div class="allied-stack">
+                  <div class="org-card" data-keywords="pharmacy 24x7 chief pharmacist medication safety mom" data-chapters="MOM">
+                    <div class="dept">Pharmacy (24x7)</div>
+                    <div class="doctor-name doctor-blue">Chief Pharmacist</div>
+                    <div class="designation">Medication Safety (MOM)</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="cssd department in-charge sterilization autoclave" data-chapters="HIC,COP">
+                    <div class="dept">CSSD Department</div>
+                    <div class="doctor-name doctor-blue">CSSD In-charge</div>
+                    <div class="designation">Sterilization & Autoclave</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="dietary nutrition dietitian kitchen head patient diets hygiene" data-chapters="COP">
+                    <div class="dept">Dietary & Nutrition</div>
+                    <div class="doctor-name doctor-blue">Dietitian / Kitchen Head</div>
+                    <div class="designation">Patient Diets & Hygiene</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="ambulance emergency transport 24x7 bls als patient transfer driver paramedic" data-chapters="COP,AAC">
+                    <div class="dept">Ambulance & Transport</div>
+                    <div class="doctor-name doctor-blue">Transport In-charge</div>
+                    <div class="designation">24x7 BLS / ALS Transfer</div>
+                    <div class="tag">(NABH: COP, AAC)</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="central stores purchase medical surgical supplies inventory procurement mom fms" data-chapters="MOM,FMS">
+                    <div class="dept">Central Stores & Purchase</div>
+                    <div class="doctor-name doctor-blue">Stores In-charge</div>
+                    <div class="designation">Supplies & Inventory</div>
+                    <div class="tag">(NABH: MOM, FMS)</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sub-Column B: Facility Safety (FMS) -->
+              <div class="subcol-facility">
+                <div class="section-badge badge-facility">FACILITY SAFETY (FMS)</div>
+                <div class="facility-stack">
+                  <div class="org-card" data-keywords="safety fire officer designated safety officer fire drills evac security" data-chapters="FMS">
+                    <div class="dept">Safety & Fire Officer</div>
+                    <div class="doctor-name" style="color: #b45309;">Designated: Safety Officer</div>
+                    <div class="designation">Fire Drills, Evac, Security</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="bio-medical engg bme biomedical engineer ppm calibration logs" data-chapters="FMS">
+                    <div class="dept">Bio-Medical Engg. (BME)</div>
+                    <div class="doctor-name doctor-blue">Biomedical Engineer</div>
+                    <div class="designation">PPM, Calibration & Logs</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="housekeeping bmw supervisor bmw barcoding maint" data-chapters="FMS,HIC">
+                    <div class="dept">Housekeeping & BMW</div>
+                    <div class="doctor-name" style="color: #b45309;">Housekeeping Supervisor</div>
+                    <div class="designation">BMW Barcoding & Maint</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="security cctv surveillance premises safety guard entry control guard" data-chapters="FMS,PSQ">
+                    <div class="dept">Security & Surveillance</div>
+                    <div class="doctor-name" style="color: #b45309;">Security In-charge</div>
+                    <div class="designation">CCTV & Access Control</div>
+                    <div class="tag">(NABH: FMS, PSQ)</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="maintenance utilities mgps medical gas pipeline hvac dg backup electrical engineering" data-chapters="FMS">
+                    <div class="dept">Maintenance & Utilities</div>
+                    <div class="doctor-name" style="color: #b45309;">Engineering Lead</div>
+                    <div class="designation">MGPS, HVAC & Power Backup</div>
+                    <div class="tag">(NABH: FMS)</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sub-Column C: Corporate / Admin -->
+              <div class="subcol-corporate">
+                <div class="section-badge badge-corporate">CORPORATE / ADMIN</div>
+                <div class="corporate-stack">
+                  <div class="org-card" data-keywords="mrd medical records him officer archiving icd-10 ims" data-chapters="IMS">
+                    <div class="dept">MRD / Medical Records</div>
+                    <div class="doctor-name doctor-blue">MRD / HIM Officer</div>
+                    <div class="designation">Archiving, ICD-10 (IMS)</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="human resources hr manager executive credentialing bls training" data-chapters="HRM">
+                    <div class="dept">Human Resources</div>
+                    <div class="doctor-name doctor-blue">HR Manager / Executive</div>
+                    <div class="designation">Credentialing, BLS Training</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="front office billing tpa in-charge tariff billing transparency" data-chapters="PRE,AAC">
+                    <div class="dept">Front Office & Billing</div>
+                    <div class="doctor-name doctor-blue">Billing / TPA In-charge</div>
+                    <div class="designation">Tariff, Billing Transparency</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="it systems his emr electronic medical record pacs server data security backup" data-chapters="IMS">
+                    <div class="dept">IT & Systems (HIS)</div>
+                    <div class="doctor-name doctor-blue">IT Systems Admin</div>
+                    <div class="designation">HIS, EMR & Data Security</div>
+                    <div class="tag">(NABH: IMS)</div>
+                  </div>
+
+                  <div class="org-card" data-keywords="statutory compliance legal licenses aerb fire noc pollution board pcpndt legal" data-chapters="FMS,HRM">
+                    <div class="dept">Statutory Compliance</div>
+                    <div class="doctor-name doctor-blue">Compliance Officer</div>
+                    <div class="designation">AERB, Fire NOC & Licenses</div>
+                    <div class="tag">(NABH: FMS, HRM)</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </div>
+
+      </div>
+
+      <!-- ESCALATION CONTINUUM BANNER -->
+      <section class="escalation-continuum-bar" aria-label="Clinical Escalation Continuum">
+        <div class="escalation-title">NABH 6th EDITION PATIENT SAFETY & CLINICAL ESCALATION CONTINUUM</div>
+        <div class="escalation-flow-steps">
+          <span class="step">Bedside Nurse / Duty CMO</span>
+          <span class="arrow-svg">
+            <svg width="20" height="12" viewBox="0 0 20 12" fill="none"><path d="M0 6H16M16 6L11 1M16 6L11 11" stroke="#0d6559" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="step">Departmental Consultant (Medicine / Surgery / Nephro / Paedia / Gynae / Ortho / Anaesthesia)</span>
+          <span class="arrow-svg">
+            <svg width="20" height="12" viewBox="0 0 20 12" fill="none"><path d="M0 6H16M16 6L11 1M16 6L11 11" stroke="#0d6559" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="step">Medical Superintendent</span>
+          <span class="arrow-svg">
+            <svg width="20" height="12" viewBox="0 0 20 12" fill="none"><path d="M0 6H16M16 6L11 1M16 6L11 11" stroke="#0d6559" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="step urgent">Adverse Incident / Sentinel Event Notification to Quality Directorate (&lt;24h) &amp; Medical Director</span>
+        </div>
+      </section>
+
+      <!-- BOTTOM THREE-COLUMN FOOTER / LEGEND -->
+      <footer class="chart-footer">
+        
+        <!-- Col 1: Governance -->
+        <div class="footer-col">
+          <div class="footer-title">NABH 6th ED. GOVERNANCE</div>
+          <p>&bull; <strong>Independent Quality Channel:</strong> Direct reporting pathway from Quality Directorate to Board for unhindered clinical oversight.</p>
+          <p>&bull; <strong>Clinical Privileging:</strong> All consultants credentialed &amp; privileged across IPD, OPD, ICU &amp; OT procedures.</p>
+        </div>
+
+        <!-- Col 2: Designated Leadership Personnel -->
+        <div class="footer-col">
+          <div class="footer-title">DESIGNATED LEADERSHIP PERSONNEL (JJM HOSPITAL, KASHIPUR)</div>
+          <p>&bull; <strong>Medical Director:</strong> Dr. Ashok Goel &nbsp;|&nbsp; <strong>Nephrology Lead:</strong> Dr. Abhishek Goel &nbsp;|&nbsp; <strong>Anaesthesia &amp; ICU Lead:</strong> Dr. Yamini Goel</p>
+          <p>&bull; <strong>General &amp; Lap. Surgery:</strong> Dr. Pradeep Raj Rastogi &nbsp;|&nbsp; <strong>General Medicine:</strong> Dr. S. P. Gupta &nbsp;|&nbsp; <strong>Paediatrics:</strong> Dr. Arun Prakash Pancholi</p>
+          <p>&bull; <strong>Obs &amp; Gynaecology:</strong> Dr. Ruchi Devendra Mehta &nbsp;|&nbsp; <strong>Orthopaedics:</strong> Dr. A. K. Sirohi</p>
+          <p>&bull; <strong>Diagnostics:</strong> Dr. A. K. Goel (Pathology), Dr. B. M. Goel (Radiology) &nbsp;|&nbsp; <strong>Quality:</strong> Quality Manager</p>
+        </div>
+
+        <!-- Col 3: Key Chapter Alignment -->
+        <div class="footer-col">
+          <div class="footer-title">KEY CHAPTER ALIGNMENT</div>
+          <p>&bull; <strong>AAC &amp; COP:</strong> Access, Assessment &amp; Continuity of Care; Care of Patients</p>
+          <p>&bull; <strong>MOM &amp; HIC:</strong> Medication Management; Hospital Infection Control</p>
+          <p>&bull; <strong>CQI, PSQ &amp; FMS:</strong> Quality Indicators, Patient Safety, Facility &amp; Safety</p>
+        </div>
+
+      </footer>
+
+    </div> <!-- chartContainer -->
+  </div> <!-- chartScaleWrapper -->
+</main>
+
+<script>
+  // Elements & State
+  const searchInput = document.getElementById('searchInput');
+  const searchClearBtn = document.getElementById('searchClearBtn');
+  const chapterButtons = document.querySelectorAll('#chapterFilterPills .pill-btn');
+  const chartViewport = document.getElementById('chartViewport');
+  const chartScaleWrapper = document.getElementById('chartScaleWrapper');
+  const chartContainer = document.getElementById('chartContainer');
+  const utilityBar = document.getElementById('utilityBar');
+  const floatingInfoBtn = document.getElementById('floatingInfoBtn');
+  const hideBarBtn = document.getElementById('hideBarBtn');
+  const printBtn = document.getElementById('printBtn');
+  const tvToast = document.getElementById('tvToast');
+
+  const zoomLevelDisplay = document.getElementById('zoomLevelDisplay');
+  const zoomInBtn = document.getElementById('zoomInBtn');
+  const zoomOutBtn = document.getElementById('zoomOutBtn');
+  const zoomFitScreenBtn = document.getElementById('zoomFitScreenBtn');
+  const zoomFitWidthBtn = document.getElementById('zoomFitWidthBtn');
+  const tvModeBtn = document.getElementById('tvModeBtn');
+
+  let currentChapter = 'all';
+  let currentQuery = '';
+  let currentScale = 1.0;
+  let toastTimeout = null;
+
+  // Toast Notification for Visual Feedback
+  function showToast(message, duration = 2600) {
+    if (!tvToast) return;
+    tvToast.textContent = message;
+    tvToast.classList.add('show');
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      tvToast.classList.remove('show');
+    }, duration);
+  }
+
+  // Search and Filter Functionality
+  function applyFilter() {
+    const q = currentQuery.trim().toLowerCase();
+    const targetChapter = currentChapter.trim().toUpperCase();
+    let matchCount = 0;
+
+    // Dynamically query all searchable cards
+    const cards = document.querySelectorAll('[data-keywords]');
+
+    cards.forEach(card => {
+      const keywords = (card.getAttribute('data-keywords') || '').toLowerCase();
+      const rawChapters = card.getAttribute('data-chapters') || '';
+      const chapters = rawChapters.split(',').map(s => s.trim().toUpperCase()).filter(Boolean);
+      const textContent = card.innerText.toLowerCase();
+
+      const matchesQuery = q === '' || keywords.includes(q) || textContent.includes(q);
+      const matchesChapter = targetChapter === 'ALL' || chapters.includes(targetChapter);
+
+      if (matchesQuery && matchesChapter) {
+        card.classList.remove('dimmed');
+        if (q !== '' || targetChapter !== 'ALL') {
+          card.classList.add('highlight-active');
+        } else {
+          card.classList.remove('highlight-active');
+        }
+        matchCount++;
+      } else {
+        card.classList.remove('highlight-active');
+        card.classList.add('dimmed');
+      }
+    });
+  }
+
+  // Update clear button visibility
+  function updateClearBtn() {
+    if (searchClearBtn) {
+      searchClearBtn.style.display = (searchInput && searchInput.value.length > 0) ? 'block' : 'none';
+    }
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentQuery = e.target.value;
+      updateClearBtn();
+      applyFilter();
+    });
+  }
+
+  if (searchClearBtn) {
+    searchClearBtn.addEventListener('click', () => {
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.focus();
+      }
+      currentQuery = '';
+      updateClearBtn();
+      applyFilter();
+      showToast('Search cleared');
+    });
+  }
+
+  chapterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      chapterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentChapter = btn.getAttribute('data-chapter') || 'all';
+      applyFilter();
+      const label = btn.textContent.trim();
+      showToast('Filter: ' + label);
+    });
+  });
+
+  // Top Bar Hide & Unhide Controls (Only opens when 'i' is clicked or H pressed)
+  function hideTopBar() {
+    utilityBar.classList.add('bar-hidden');
+    document.body.classList.add('bar-is-hidden');
+    if (floatingInfoBtn) floatingInfoBtn.classList.add('visible');
+    showToast("Top bar hidden • Click 'ℹ' to reopen (or press H)");
+  }
+
+  function showTopBar() {
+    utilityBar.classList.remove('bar-hidden');
+    document.body.classList.remove('bar-is-hidden');
+    if (floatingInfoBtn) floatingInfoBtn.classList.remove('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    showToast('Top bar opened');
+  }
+
+  function toggleTopBar() {
+    if (utilityBar.classList.contains('bar-hidden')) {
+      showTopBar();
+    } else {
+      hideTopBar();
+    }
+  }
+
+  if (hideBarBtn) hideBarBtn.addEventListener('click', hideTopBar);
+  if (floatingInfoBtn) floatingInfoBtn.addEventListener('click', showTopBar);
+
+  // Zoom and TV Sizing Function
+  function applyZoom(scale) {
+    // Allow scale from 0.25 up to 3.0
+    currentScale = Math.min(Math.max(0.25, Math.round(scale * 100) / 100), 3.0);
+    chartContainer.style.transform = `scale(${currentScale})`;
+
+    const baseWidth = 1720;
+    const baseHeight = chartContainer.offsetHeight || 1650;
+
+    // Adjust wrapper dimensions so document scroll and boundaries match scaled content exactly!
+    chartScaleWrapper.style.width = `${Math.ceil(baseWidth * currentScale)}px`;
+    chartScaleWrapper.style.height = `${Math.ceil(baseHeight * currentScale)}px`;
+
+    const percent = Math.round(currentScale * 100) + '%';
+    if (zoomLevelDisplay) zoomLevelDisplay.textContent = percent;
+  }
+
+  function fitToWidth() {
+    const availWidth = window.innerWidth - 36;
+    const targetWidth = 1720;
+    const scale = availWidth / targetWidth;
+    applyZoom(scale);
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    showToast(`Fit to Width: ${Math.round(currentScale * 100)}%`);
+  }
+
+  function fitToScreen() {
+    const isBarHidden = utilityBar.classList.contains('bar-hidden');
+    const barHeight = isBarHidden ? 0 : (utilityBar.offsetHeight || 65);
+    const availWidth = window.innerWidth - 36;
+    const availHeight = window.innerHeight - barHeight - 36;
+    const targetWidth = 1720;
+    const targetHeight = chartContainer.offsetHeight || 1650;
+
+    const scaleW = availWidth / targetWidth;
+    const scaleH = availHeight / targetHeight;
+    const scale = Math.min(scaleW, scaleH);
+    applyZoom(scale);
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    showToast(`Fitted to TV Screen: ${Math.round(currentScale * 100)}%`);
+  }
+
+  // TV Presentation Mode (Fullscreen & Pure White Background)
+  function toggleTvMode() {
+    if (!document.fullscreenElement) {
+      document.body.classList.add('tv-mode-active');
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().then(() => {
+          hideTopBar();
+          setTimeout(fitToScreen, 220);
+          showToast("TV Fullscreen Active (White Background) • Click 'ℹ' or press F to exit");
+        }).catch(() => {
+          hideTopBar();
+          fitToScreen();
+          showToast("TV Mode Active • Click 'ℹ' to open toolbar");
+        });
+      } else {
+        hideTopBar();
+        fitToScreen();
+        showToast("TV Mode Active • Click 'ℹ' to open toolbar");
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen().then(() => {
+          document.body.classList.remove('tv-mode-active');
+          showTopBar();
+          setTimeout(fitToWidth, 200);
+          showToast('Exited TV Mode');
+        }).catch(() => {
+          document.body.classList.remove('tv-mode-active');
+          showTopBar();
+        });
+      } else {
+        document.body.classList.remove('tv-mode-active');
+        showTopBar();
+      }
+    }
+  }
+
+  // Event Listeners for Zoom & TV Buttons
+  if (zoomInBtn) {
+    zoomInBtn.addEventListener('click', () => {
+      applyZoom(Math.round((currentScale + 0.1) * 10) / 10);
+    });
+  }
+
+  if (zoomOutBtn) {
+    zoomOutBtn.addEventListener('click', () => {
+      applyZoom(Math.round((currentScale - 0.1) * 10) / 10);
+    });
+  }
+
+  if (zoomLevelDisplay) {
+    zoomLevelDisplay.style.cursor = 'pointer';
+    zoomLevelDisplay.addEventListener('click', () => {
+      applyZoom(1.0);
+      showToast('Zoom reset to 100%');
+    });
+  }
+
+  if (zoomFitScreenBtn) {
+    zoomFitScreenBtn.addEventListener('click', fitToScreen);
+  }
+
+  if (zoomFitWidthBtn) {
+    zoomFitWidthBtn.addEventListener('click', fitToWidth);
+  }
+
+  if (tvModeBtn) {
+    tvModeBtn.addEventListener('click', toggleTvMode);
+  }
+
+  if (printBtn) {
+    printBtn.addEventListener('click', () => {
+      window.print();
+    });
+  }
+
+  // Fullscreen state listener
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+      document.body.classList.remove('tv-mode-active');
+      showTopBar();
+      setTimeout(fitToWidth, 200);
+      showToast('Standard View');
+    } else {
+      document.body.classList.add('tv-mode-active');
+    }
+  });
+
+  // Keyboard & TV Remote Control Hotkeys
+  window.addEventListener('keydown', (e) => {
+    // Ignore if user is typing into search box
+    if (document.activeElement === searchInput) {
+      if (e.key === 'Escape') {
+        searchInput.value = '';
+        currentQuery = '';
+        updateClearBtn();
+        applyFilter();
+        searchInput.blur();
+      }
+      return;
+    }
+
+    if (e.key === 'h' || e.key === 'H') {
+      e.preventDefault();
+      toggleTopBar();
+    } else if (e.key === 'f' || e.key === 'F') {
+      e.preventDefault();
+      toggleTvMode();
+    } else if (e.key === 's' || e.key === 'S') {
+      e.preventDefault();
+      fitToScreen();
+    } else if (e.key === 'w' || e.key === 'W') {
+      e.preventDefault();
+      fitToWidth();
+    } else if (e.key === '+' || e.key === '=') {
+      e.preventDefault();
+      applyZoom(Math.round((currentScale + 0.1) * 10) / 10);
+    } else if (e.key === '-' || e.key === '_') {
+      e.preventDefault();
+      applyZoom(Math.round((currentScale - 0.1) * 10) / 10);
+    } else if (e.key === '0') {
+      e.preventDefault();
+      applyZoom(1.0);
+    } else if (e.key === 'Escape') {
+      if (document.fullscreenElement) {
+        toggleTvMode();
+      } else if (utilityBar.classList.contains('bar-hidden')) {
+        showTopBar();
+      }
+    }
+  });
+
+  // Auto-fit on load based on screen size (44", 55", 65" TV or monitor)
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const availWidth = window.innerWidth - 36;
+      if (availWidth < 1720) {
+        fitToWidth();
+      } else if (availWidth >= 2560) {
+        const tvScale = Math.min(2.0, availWidth / 1720);
+        applyZoom(tvScale);
+      } else {
+        applyZoom(1.0);
+      }
+    }, 120);
+  });
+
+  // Handle screen resize
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      applyZoom(currentScale);
+    }, 150);
+  });
+</script>
+</body>
+</html>
